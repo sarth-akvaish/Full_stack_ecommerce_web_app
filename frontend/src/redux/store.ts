@@ -1,10 +1,10 @@
-import { configureStore, Store } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
+import { dashboardAPI } from "./api/dashboardAPI";
+import { orderAPI } from "./api/orderAPI";
 import { productAPI } from "./api/productAPI";
 import { userAPI } from "./api/userAPI";
-import { userReducer } from "./reducer/userReducer";
 import { cartReducer } from "./reducer/cartReducer";
-import { orderAPI } from "./api/orderAPI";
-import { dashboardAPI } from "./api/dashboardAPI";
+import { userReducer } from "./reducer/userReducer";
 
 export const server = import.meta.env.VITE_SERVER;
 
@@ -17,7 +17,7 @@ export const store = configureStore({
         [userReducer.name]: userReducer.reducer,
         [cartReducer.name]: cartReducer.reducer,
     },
-    middleware: (mid) => [...mid(), userAPI.middleware, productAPI.middleware, orderAPI.middleware, dashboardAPI.middleware],
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(userAPI.middleware).concat(productAPI.middleware).concat(orderAPI.middleware).concat(dashboardAPI.middleware),
 
 })
 
