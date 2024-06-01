@@ -38,7 +38,9 @@ app.use('/api/v1/product', productRoute);
 app.use('/api/v1/order', orderRoute);
 app.use('/api/v1/payment', paymentRoute);
 app.use('/api/v1/dashboard', statsRoute);
-
+app.use('/health',(req,res)=>{
+    res.status(200).json("Health check endpoint");
+})
 
 app.use('/uploads', express.static('uploads'))
 app.use(errorMiddleware);
